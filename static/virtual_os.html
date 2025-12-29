@@ -627,8 +627,8 @@
           connectionStatus.className = 'connection-status';
 
           try {
-            const data = await testConnection(`http://${window.location.hostname}:8000/start_stream`);
-            const data1 = await testConnection1(`http://${window.location.hostname}:5000/start_stream`);
+            const data = await testConnection(`/start_stream`);
+            const data1 = await testConnection1(`/start_stream`);
             
             if (data1.status === 'already running' || data1.status === 'started') {
               // Create video element
