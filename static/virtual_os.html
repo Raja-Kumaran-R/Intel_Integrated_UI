@@ -540,7 +540,7 @@
 
       <div class="remote-desktop-wrapper">
         <div class="remote-desktop-header">
-          <span>Remote Desktop - ${window.location.hostname}</span>
+          <span>Remote Desktop</span>
           <div class="connection-status disconnected" id="connection-status">Disconnected</div>
         </div>
         <div class="remote-desktop-content">
@@ -627,14 +627,14 @@
           connectionStatus.className = 'connection-status';
 
           try {
-            const data = await testConnection('http://${window.location.hostname}:8000/start_stream');
-            const data1 = await testConnection1('http://${window.location.hostname}:5000/start_stream');
+            const data = await testConnection(`http://${window.location.hostname}:8000/start_stream`);
+            const data1 = await testConnection1(`http://${window.location.hostname}:5000/start_stream`);
             
             if (data.status === 'already running' || data.status === 'started') {
               // Create video element
               videoElement = document.createElement('img');
               videoElement.id = 'remoteDesktopImg';
-              videoElement.src = 'http://${window.location.hostname}:9000/stream?advance_headers=1&dual_final_frames=1&t=' + Date.now();
+              videoElement.src = `http://${window.location.hostname}:9000/stream?advance_headers=1&dual_final_frames=1&t=` + Date.now();
               videoElement.style.width = '100%';
               videoElement.style.height = '100%';
               videoElement.style.objectFit = 'contain';
@@ -656,7 +656,7 @@
               // Auto-refresh the stream every 30 seconds
               refreshInterval = setInterval(() => {
                 if (videoElement && isConnected) {
-                  videoElement.src = 'http://${window.location.hostname}:9000/stream?advance_headers=1&dual_final_frames=1&t=' + Date.now();
+                  videoElement.src = `http://${window.location.hostname}:9000/stream?advance_headers=1&dual_final_frames=1&t=` + Date.now();
                 }
               }, 30000);
             } else {
