@@ -200,7 +200,8 @@
   <script>
     let cwd = "", editPath = "";
     const DRIVER_PORT = 5003;
-    const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:${DRIVER_PORT}`;
+    //const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:${DRIVER_PORT}`;
+    const API_BASE_URL = "http://100.112.10.66:8081";
 
     function setBreadcrumb() {
       const bc = document.getElementById("breadcrumb");

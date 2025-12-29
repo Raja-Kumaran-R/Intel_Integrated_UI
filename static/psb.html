@@ -1058,8 +1058,8 @@
         btn.innerHTML = `<span class="loading"></span>`;
 
         try {
-          const response = await fetch(`http://${window.location.hostname}:8001/power/${action}`, {
-            method: 'POST'
+          const response = await fetch(`http://${window.location.hostname}:3333/power/${action}`, {
+            method: 'GET'
           });
           
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -1087,7 +1087,7 @@
 
       async function checkPowerStatus() {
         try {
-          const response = await fetch(`http://${window.location.hostname}:8001/power/state`);
+          const response = await fetch(`http://${window.location.hostname}:3333/state`);
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
           const data = await response.json();
@@ -1246,7 +1246,7 @@
         refreshBtn.innerHTML = '<span class="loading"></span>Resetting...';
 
         try {
-          const response = await fetch(`http://${window.location.hostname}:8001/power/reset`, {
+          const response = await fetch(`http://${window.location.hostname}:3333/power/reset`, {
             method: 'GET',
           });
 
@@ -1280,7 +1280,7 @@
       
       try {
         // This endpoint needs to be implemented on your server
-        const response = await fetch(`http://${window.location.hostname}:5010/list-files`);
+        const response = await fetch(`http://${window.location.hostname}:1818/list-files`);
         const data = await response.json();
         
         if (data.files && data.files.length > 0) {
@@ -1326,13 +1326,14 @@
         connectBtn.innerHTML = '<span class="loading"></span>Connecting...';
         
         try {
-          const response = await fetch(`http://${window.location.hostname}:5020/start-logging`, { method: 'POST' });
-          const data = await response.json();
+          const response = await fetch(`http://${window.location.hostname}:1818/start-logging`, { method: 'POST' });
+          
           
           if (response.status === 409) {
             alert('Logging is already active in another tab.');
             return;
           }
+          const data = await response.json();
           
           if (data.status === 'started') {
             isBiosConnected = true;
@@ -1364,7 +1365,7 @@
         disconnectBtn.innerHTML = '<span class="loading"></span>Disconnecting...';
         
         try {
-          const response = await fetch(`http://${window.location.hostname}:5020/stop-logging`, { method: 'POST' });
+          const response = await fetch(`http://${window.location.hostname}:1818/stop-logging`, { method: 'POST' });
           const data = await response.json();
           
           if (response.status === 403) {
@@ -1390,7 +1391,7 @@
 
       async function fetchBiosLogs() {
         try {
-          const response = await fetch(`http://${window.location.hostname}:5020/get-logs`);
+          const response = await fetch(`http://${window.location.hostname}:1818/get-logs`);
           const data = await response.json();
           
           if (data.logs && data.logs.length > 0) {
@@ -1425,7 +1426,7 @@
       
       try {
         // This endpoint needs to be implemented on your server
-        const response = await fetch(`http://${window.location.hostname}:5020/list-files`);
+        const response = await fetch(`http://${window.location.hostname}:1818/list-files`);
         const data = await response.json();
         
         if (data.files && data.files.length > 0) {
@@ -1477,8 +1478,8 @@
       
       try {
         const endpoint = type === 'postcode' ? 
-          `http://${window.location.hostname}:5010/get-file/${encodeURIComponent(file.name)}` :
-          `http://${window.location.hostname}:5020/get-file/${encodeURIComponent(file.name)}`;
+          `http://${window.location.hostname}:1818/get-file/${encodeURIComponent(file.name)}` :
+          `http://${window.location.hostname}:1818/get-file/${encodeURIComponent(file.name)}`;
         
         const response = await fetch(`${API_BASE_URL}${endpoint}`);
         const data = await response.json();
