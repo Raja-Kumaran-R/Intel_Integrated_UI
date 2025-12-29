@@ -1457,7 +1457,7 @@
     // ==================== FILE VIEWING & DOWNLOAD ====================
     let currentFile = null;
     let currentFileType = null;
-    const DRIVER_PORT = 5010;
+    const DRIVER_PORT = 1818;
     const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:${DRIVER_PORT}`;
 
     async function openFile(file, type) {
@@ -1478,8 +1478,8 @@
       
       try {
         const endpoint = type === 'postcode' ? 
-          `http://${window.location.hostname}:1818/get-file/${encodeURIComponent(file.name)}` :
-          `http://${window.location.hostname}:1818/get-file/${encodeURIComponent(file.name)}`;
+          `/get-file/${encodeURIComponent(file.name)}` :
+          `/get-file/${encodeURIComponent(file.name)}`;
         
         const response = await fetch(`${API_BASE_URL}${endpoint}`);
         const data = await response.json();
